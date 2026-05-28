@@ -1,0 +1,27 @@
+# Agent State (Dihasilkan oleh AI, bisa di-regenerate)
+.agents/
+
+# Agent Code & Config (Source of Truth untuk Agent)
+.agents/task/
+.agents/workflow/
+
+# Local Development
+chainexplain-be/.env
+chainexplain-be/.env.dev
+chainexplain-fe/.env
+chainexplain-fe/.env.dev
+
+# Firebase Local Emulator (Dihasilkan oleh AI, bisa di-regenerate)
+.agents/local/
+
+# Deployment & Infrastructure
+.agents/cloud/
+chainexplain-be/serviceAccountKey.json
+
+# Documentation (Bisa dibaca, tapi opsional untuk di-track)
+# docs/
+chainexplain-be/TASK.md
+chainexplain-fe/TASK.md
+chainexplain-be/node_modules
+chainexplain-fe/node_modules
+chainexplain-be/GCP_SETUP_GUIDE.md

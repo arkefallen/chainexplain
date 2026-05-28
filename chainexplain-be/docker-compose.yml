@@ -1,0 +1,89 @@
+version: '3.8'
+
+services:
+  minio:
+    image: minio/minio
+    ports:
+      - "9000:9000"
+      - "9001:9001"     # MinIO Console UI
+    environment:
+      MINIO_ROOT_USER: minioadmin
+      MINIO_ROOT_PASSWORD: minioadmin
+    command: server /data --console-address ":9001"
+    volumes:
+      - minio_data:/data
+
+  firebase-emulator:
+    build:
+      context: .
+      dockerfile: Dockerfile.emulator
+    ports:
+      - "4000:4000"     # Emulator UI
+      - "8080:8080"     # Firestore Emulator
+      - "8085:8085"     # Pub/Sub Emulator
+
+  api:
+    build:
+      context: .
+      dockerfile: Dockerfile.api
+    ports:
+      - "${PORT}:3000"
+    environment:
+      - PORT=3000
+      - NODE_ENV=${NODE_ENV}
+      - STORAGE_TYPE=${STORAGE_TYPE}
+      - MINIO_ENDPOINT=minio
+      - MINIO_PORT=${MINIO_PORT}
+      - MINIO_USE_SSL=${MINIO_USE_SSL}
+      - MINIO_ACCESS_KEY=${MINIO_ACCESS_KEY}
+      - MINIO_SECRET_KEY=${MINIO_SECRET_KEY}
+      - STORAGE_BUCKET=${STORAGE_BUCKET}
+      - FIRESTORE_EMULATOR_HOST=firebase-emulator:8080
+      - PUBSUB_EMULATOR_HOST=firebase-emulator:8085
+      - GCP_PROJECT_ID=${GCP_PROJECT_ID}
+      - PUBSUB_TOPIC_ID=${PUBSUB_TOPIC_ID}
+      - AI_API_URL=${AI_API_URL}
+      - AI_API_KEY=${AI_API_KEY}
+      - AI_MODEL=${AI_MODEL}
+    depends_on:
+      - minio
+      - firebase-emulator
+
+  worker:
+    build:
+      context: .
+      dockerfile: Dockerfile.worker
+    environment:
+      - NODE_ENV=${NODE_ENV}
+      - STORAGE_TYPE=${STORAGE_TYPE}
+      - MINIO_ENDPOINT=minio
+      - MINIO_PORT=${MINIO_PORT}
+      - MINIO_USE_SSL=${MINIO_USE_SSL}
+      - MINIO_ACCESS_KEY=${MINIO_ACCESS_KEY}
+      - MINIO_SECRET_KEY=${MINIO_SECRET_KEY}
+      - STORAGE_BUCKET=${STORAGE_BUCKET}
+      - FIRESTORE_EMULATOR_HOST=firebase-emulator:8080
+      - PUBSUB_EMULATOR_HOST=firebase-emulator:8085
+      - GCP_PROJECT_ID=${GCP_PROJECT_ID}
+      - PUBSUB_TOPIC_ID=${PUBSUB_TOPIC_ID}
+      - AI_API_URL=${AI_API_URL}
+      - AI_API_KEY=${AI_API_KEY}
+      - AI_MODEL=${AI_MODEL}
+    depends_on:
+      - minio
+      - firebase-emulator
+
+  frontend:
+    build:
+      context: ../chainexplain-fe
+      dockerfile: Dockerfile.dev
+    ports:
+      - "5173:5173"
+    environment:
+      - VITE_API_URL=http://localhost:${PORT}
+    depends_on:
+      - api
+
+volumes:
+  minio_data:
+
