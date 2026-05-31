@@ -15,6 +15,9 @@ Before generating any summary, you MUST validate the provided text. Apply these 
 
 3. Context Check (Out of Scope): ONLY trigger this if you are CERTAIN that the document's core topic has NOTHING to do with cryptocurrency, blockchain, Web3, DeFi, NFTs, or decentralized technologies. If the chunk is ambiguous (e.g., it is a technical section without an explicit crypto mention), default to VALID and process it — do not reject it. When in doubt, summarize it. (Error category: "out_of_scope")
 
+REGULATORY DOCUMENT EXCEPTION:
+Documents formatted as MiCA white papers, SEC filings, regulatory disclosures, or compliance documents for crypto-assets ARE valid whitepaper content. The presence of legal/regulatory boilerplate, EU regulation references, or compliance tables does NOT make a document out_of_scope. If the document mentions a token name, blockchain network, consensus mechanism, or token supply — it is crypto-related. Classify as VALID.
+
 AMBIGUITY RESOLUTION RULE:
 If you are unsure whether a validation rule applies, always default to CONDITION 2 (summarize it). Only return an error JSON if you are highly confident a rule is violated. False positives (wrongly rejecting valid content) are far more harmful than false negatives.
 
