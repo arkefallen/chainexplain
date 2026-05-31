@@ -21,6 +21,8 @@ const MAX_RETRIES = 3;
  * System prompt loaded once at module initialization from the .txt file.
  * This avoids repeated disk I/O on every summarization call.
  */
+
+// TODO : FIX SYSTEM PROMPT BECAUSE OF TOO SENSITIVE READING AN ERROR
 const loadedSystemPrompt = fs.readFileSync(
   path.join(__dirname, 'prompts', 'summarizer.system.txt'),
   'utf8'

@@ -37,7 +37,7 @@ const uploadPdf = async (req, res, next) => {
       metadata: {
         pageCount: 0,
         extractedTextLength: 0,
-        modelUsed: 'deepseek-ai/DeepSeek-V4-Flash',
+        modelUsed: process.env.AI_MODEL,
         tokenUsage: { input: 0, output: 0 }
       }
     };

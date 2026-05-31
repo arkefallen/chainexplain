@@ -56,7 +56,7 @@ const processJob = async (jobId) => {
     const metadata = {
         pageCount,
         extractedTextLength: text.length,
-        modelUsed: 'deepseek-ai/DeepSeek-V4-Flash',
+        modelUsed: process.env.AI_MODEL,
         tokenUsage: { input: 0, output: 0 } // Mock
     };
     

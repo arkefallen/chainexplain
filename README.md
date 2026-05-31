@@ -1,6 +1,6 @@
 # ChainExplain — Cryptocurrency Whitepaper ELI5 Explainer
 
-ChainExplain is a modern full-stack web application designed to demystify complex technical concepts and jargon found within cryptocurrency whitepapers and Web3 protocols. Leveraging the power of Pioneer AI (DeepSeek-V4-Flash) and an asynchronous event-driven architecture, ChainExplain distills complex documents into simple, beginner-friendly, and bilingual (Indonesian & English) ELI5 (Explain Like I'm 5) summaries.
+ChainExplain is a modern full-stack web application designed to demystify complex technical concepts and jargon found within cryptocurrency whitepapers and Web3 protocols. Leveraging the power of AI inference and an asynchronous event-driven architecture, ChainExplain distills complex documents into simple, beginner-friendly, and bilingual (Indonesian & English) ELI5 (Explain Like I'm 5) summaries.
 
 ---
 
@@ -47,7 +47,7 @@ graph TD
         PubSub["Google Cloud Pub/Sub Emulator"]
         MinIO["MinIO Storage (GCS Emulator)"]
         Firestore["Google Firestore Database"]
-        AI["Pioneer AI (DeepSeek-V4-Flash)"]
+        AI["AI Inference"]
         
         HTTP -->|1. POST /api/upload| API
         HTTP -->|4. GET /api/jobs/:id| API
@@ -75,17 +75,17 @@ graph TD
 
 ## 💻 Tech Stack
 
-### Backend (Node.js CommonJS)
+### Backend
 - **Server Framework**: Express 5.x
 - **Storage**: MinIO SDK (Local S3 / Google Cloud Storage emulator compatibility)
 - **Database**: Google Firestore Admin SDK
 - **Queue/Messaging**: Google Cloud Pub/Sub Client
 - **Text Extraction**: `pdf-parse` v2 (modern class-based API)
 - **Idempotency**: Atomic Firestore Transaction Locks
-- **AI Reasoning**: Pioneer AI API (`deepseek-ai/DeepSeek-V4-Flash` model)
+- **AI Reasoning**: AI Inference
 
-### Frontend (React ES Modules)
-- **Vite 8.x + React 19.x**
+### Frontend
+- **Framework**: Vite 8.x + React 19.x
 - **State Management**: Zustand 5.x
 - **Styling**: Tailwind CSS + Shadcn UI primitive components
 - **Animations**: Framer Motion 12.x (Spring physics: stiffness 100/200, damping 15/20)
