@@ -14,8 +14,11 @@ const app = express();
 app.use(helmet());
 app.use(cors({
   origin: [
-    'https://chainexplain.vercel.app',     // Production frontend
-    'http://localhost:5173',                // Local development
+    'https://utopian-pen-495514-a8.web.app',        // Production frontend (Firebase Hosting)
+    'https://utopian-pen-495514-a8.firebaseapp.com', // Production frontend (Firebase Hosting - Backup)
+    'http://localhost:5173',                // Local development (Vite dev)
+    'http://localhost:5000',                // Local development (Firebase serve default)
+    'http://localhost:5001',                // Local development (Firebase serve fallback)
   ],
   methods: ['GET', 'POST'],
   allowedHeaders: ['Content-Type'],

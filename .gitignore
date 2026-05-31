@@ -10,6 +10,7 @@ chainexplain-be/.env
 chainexplain-be/.env.dev
 chainexplain-fe/.env
 chainexplain-fe/.env.dev
+chainexplain-fe/.env.production
 
 # Firebase Local Emulator (Dihasilkan oleh AI, bisa di-regenerate)
 .agents/local/
