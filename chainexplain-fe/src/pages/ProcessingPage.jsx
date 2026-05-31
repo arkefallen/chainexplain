@@ -32,7 +32,7 @@ const FUNNY_MESSAGES = {
   ],
   [JOB_STATUS.SUMMARIZING]: [
     'Crafting silly analogies for 5-year-olds...',
-    'Whispering to DeepSeek to explain it to a kindergarten class...',
+    'Whispering to AI to explain it to a kindergarten class...',
     'Replacing complex financial jargon with sandbox analogies...'
   ],
   [JOB_STATUS.FAILED]: [
@@ -144,7 +144,7 @@ export default function ProcessingPage() {
   };
 
   return (
-    <div className="max-w-xl mx-auto flex flex-col gap-10 py-4 md:py-8 text-center justify-center items-center">
+    <div className="w-[90%] md:w-[35vw] lg:w-[30vw] min-w-[340px] max-w-xl mx-auto flex flex-col gap-10 py-4 md:py-8 text-center justify-center items-center">
       {/* Title */}
       <div className="flex flex-col gap-2 w-full text-left">
         <h1 className="font-sans text-2xl font-extrabold tracking-tight text-foreground">
@@ -191,7 +191,7 @@ export default function ProcessingPage() {
             ? 'Simplification Complete!' 
             : 'Processing Whitepaper'}
         </h2>
-        <p className="font-sans text-xs text-muted-foreground leading-relaxed h-[40px] px-4 max-w-sm mb-6">
+        <p className="font-sans text-xs text-muted-foreground leading-relaxed min-h-[40px] px-4 w-full mb-6 text-balance break-words">
           {message}
         </p>
 
@@ -277,7 +277,7 @@ export default function ProcessingPage() {
             <div className="flex flex-col gap-1.5">
               <span className="font-sans font-bold text-sm text-foreground">Pipeline Error Report</span>
               <p className="font-sans text-xs text-muted-foreground leading-relaxed">
-                {error || 'The connection timed out during DeepSeek summarization. Please check your internet or retry.'}
+                {error || 'The connection timed out during whitepaper summarization. Please check your internet or retry.'}
               </p>
             </div>
           </div>

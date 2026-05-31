@@ -1,7 +1,6 @@
-import React from 'react'
 import { Link } from 'react-router-dom'
 import { motion } from 'framer-motion'
-import { Sparkles, ArrowRight, Shield, Zap, Globe, FileText } from 'lucide-react'
+import { Sparkles, ArrowRight, BrainCircuit, Globe, MoonStar, Info } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 
 const containerVariants = {
@@ -36,172 +35,170 @@ export default function HomePage() {
       animate="visible"
       className="flex flex-col gap-16 md:gap-24 py-4 md:py-8"
     >
-      {/* Hero Section - Offset Asymmetric Layout */}
-      <section className="grid grid-cols-1 gap-12 lg:grid-cols-12 items-center">
-        {/* Left Column: Copy & Actions (7 columns) */}
-        <div className="lg:col-span-7 flex flex-col items-start text-left">
-          {/* Badge */}
-          <motion.div
-            variants={itemVariants}
-            className="inline-flex items-center gap-1.5 rounded-full bg-primary/10 border border-primary/20 px-3.5 py-1 text-xs font-semibold tracking-wider text-primary uppercase mb-6"
-          >
-            <Sparkles className="h-3 w-3" />
-            <span>AI-Powered ELI5 Engine</span>
-          </motion.div>
-
-          {/* Headline */}
-          <motion.h1
-            variants={itemVariants}
-            className="font-sans text-4xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight text-foreground leading-[1.1] mb-6"
-          >
-            Demystify Complex{' '}
-            <span className="bg-gradient-to-r from-primary via-secondary to-accent bg-clip-text text-transparent">
-              Crypto Whitepapers
-            </span>{' '}
-            in Seconds.
-          </motion.h1>
-
-          {/* Subheadline */}
-          <motion.p
-            variants={itemVariants}
-            className="font-sans text-base sm:text-lg text-muted-foreground max-w-xl leading-relaxed mb-8"
-          >
-            Don't get lost in mathematical equations and technical jargon. Upload any PDF and get a simplified, bilingual, 5-year-old style summary instantly.
-          </motion.p>
-
-          {/* CTA Button with Spring Hover & Tactile Feel */}
-          <motion.div variants={itemVariants}>
-            <Link to="/upload">
-              <Button
-                size="lg"
-                className="group relative px-8 py-6 font-sans text-base font-bold bg-primary hover:bg-primary/90 text-primary-foreground rounded-md shadow-lg shadow-primary/20 transition-all active:translate-y-[1px]"
-              >
-                Start Explaining
-                <ArrowRight className="ml-2 h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" />
-              </Button>
-            </Link>
-          </motion.div>
-        </div>
-
-        {/* Right Column: Interactive Illustration (5 columns) */}
+      {/* Hero Section - Centered Stitch Layout */}
+      <motion.section
+        variants={itemVariants}
+        className="flex flex-col items-center text-center gap-6 py-12 md:py-16"
+      >
+        {/* AI Powered Badge */}
         <motion.div
-          variants={itemVariants}
-          className="lg:col-span-5 relative flex items-center justify-center"
+          whileHover={{ scale: 1.05 }}
+          className="inline-flex items-center gap-2 px-4 py-1.5 bg-indigo-500/10 rounded-full mb-2 border border-indigo-500/20 shadow-sm"
         >
-          <div className="relative w-full max-w-[420px] aspect-[4/3] glass-card rounded-lg p-6 flex flex-col justify-between overflow-hidden shadow-2xl">
-            {/* Ambient inner glow */}
-            <div className="absolute top-0 right-0 h-40 w-40 rounded-full bg-secondary/15 blur-3xl -z-10" />
-            <div className="absolute bottom-0 left-0 h-40 w-40 rounded-full bg-primary/10 blur-3xl -z-10" />
+          <Sparkles className="text-indigo-600 dark:text-indigo-400 h-4 w-4 animate-pulse" />
+          <span className="font-sans text-xs font-semibold tracking-wider text-indigo-600 dark:text-indigo-400 uppercase">
+            AI Powered
+          </span>
+        </motion.div>
 
-            {/* Header info */}
-            <div className="flex items-center justify-between border-b border-border pb-4">
-              <div className="flex items-center gap-2">
-                <div className="h-2 w-2 rounded-full bg-primary animate-pulse" />
-                <span className="text-xs font-mono tracking-wider text-muted-foreground">ELI5_EXPLAINER_PIPELINE</span>
-              </div>
-              <div className="flex gap-1">
-                <span className="h-1.5 w-1.5 rounded-full bg-muted-foreground/30" />
-                <span className="h-1.5 w-1.5 rounded-full bg-muted-foreground/30" />
-                <span className="h-1.5 w-1.5 rounded-full bg-muted-foreground/30" />
-              </div>
-            </div>
+        {/* Hero Title */}
+        <motion.h1
+          className="font-sans text-4xl sm:text-5xl lg:text-[64px] lg:leading-[72px] font-extrabold tracking-tight text-slate-900 dark:text-slate-100 max-w-[850px]"
+        >
+          Understand{' '}
+          <span className="bg-gradient-to-r from-indigo-500 via-violet-500 to-indigo-400 dark:from-indigo-400 dark:via-violet-400 dark:to-indigo-300 bg-clip-text text-transparent">
+            Crypto Whitepapers
+          </span>{' '}
+          in Seconds
+        </motion.h1>
 
-            {/* Floating visual elements */}
-            <div className="flex flex-col gap-4 my-8">
-              <div className="flex items-center gap-3">
-                <div className="h-8 w-8 rounded bg-primary/10 border border-primary/20 flex items-center justify-center text-primary text-xs font-bold">
-                  PDF
-                </div>
-                <div className="flex-1">
-                  <div className="h-2.5 w-3/4 rounded bg-muted-foreground/20 mb-1.5" />
-                  <div className="h-2 w-1/2 rounded bg-muted-foreground/10" />
-                </div>
-              </div>
-              <div className="flex items-center justify-center py-2 text-muted-foreground/30">
-                <ArrowRight className="h-5 w-5 animate-pulse rotate-90 lg:rotate-0" />
-              </div>
-              <div className="flex items-center gap-3">
-                <div className="h-8 w-8 rounded bg-accent/10 border border-accent/20 flex items-center justify-center text-accent text-xs font-bold">
-                  AI
-                </div>
-                <div className="flex-1">
-                  <div className="h-2.5 w-5/6 rounded bg-accent/20 mb-1.5" />
-                  <div className="h-2 w-2/3 rounded bg-muted-foreground/20" />
-                </div>
-              </div>
-            </div>
+        {/* Hero Description */}
+        <motion.p
+          className="font-sans text-base sm:text-lg md:text-xl text-slate-600 dark:text-slate-400 max-w-[650px] leading-relaxed"
+        >
+          AI-powered ELI5 summaries for the decentralized world. Skip the jargon and find the potential immediately.
+        </motion.p>
 
-            {/* Status */}
-            <div className="flex justify-between items-center bg-muted border border-border rounded px-3 py-2 text-[10px] font-mono text-muted-foreground">
-              <span>PIPELINE: ACTIVE</span>
-              <span className="text-accent font-bold">READY TO SIMPLIFY</span>
-            </div>
+        {/* Actions CTA buttons */}
+        <div className="flex flex-wrap items-center justify-center gap-4 mt-6">
+          <Link to="/upload">
+            <Button
+              size="lg"
+              className="group relative px-8 py-6 font-sans text-base font-bold bg-indigo-600 hover:bg-indigo-700 text-white rounded-lg shadow-lg shadow-indigo-600/20 transition-all hover:shadow-indigo-600/30 flex items-center gap-2 active:scale-98"
+            >
+              Start Summarizing
+              <ArrowRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" />
+            </Button>
+          </Link>
+
+          <Button
+            variant="outline"
+            size="lg"
+            onClick={() => document.getElementById('features')?.scrollIntoView({ behavior: 'smooth' })}
+            className="border border-slate-300 dark:border-slate-700 hover:border-slate-400 dark:hover:border-slate-600 text-slate-700 dark:text-slate-300 font-sans text-base font-bold px-8 py-6 rounded-lg bg-slate-100 dark:bg-slate-800/10 hover:bg-slate-200/80 dark:hover:bg-slate-800/30 transition-all active:scale-98"
+          >
+            View Demo
+          </Button>
+        </div>
+      </motion.section>
+
+      {/* Problem Section - 2-Column Asymmetric Stitch Layout */}
+      <motion.section
+        variants={itemVariants}
+        className="py-12 md:py-16 border-t border-slate-200 dark:border-slate-800/50"
+      >
+        <div className="flex flex-col md:flex-row gap-12 md:gap-16 items-start justify-between">
+          {/* Left Column: Heading */}
+          <div className="md:w-1/2">
+            <h2 className="font-sans text-3xl sm:text-4xl md:text-[40px] md:leading-[48px] font-extrabold tracking-tight text-slate-900 dark:text-slate-100">
+              The Crypto Information Gap
+            </h2>
           </div>
-        </motion.div>
-      </section>
 
-      {/* Feature Section - Asymmetric Columns Layout */}
-      <section className="flex flex-col gap-12 border-t border-border pt-16">
-        <motion.div variants={itemVariants} className="text-left">
-          <h2 className="font-sans text-xs font-extrabold uppercase tracking-widest text-accent mb-3">
-            Core Engine Features
+          {/* Right Column: Why We Exist & Text */}
+          <div className="md:w-1/2 flex flex-col gap-4">
+            <div className="flex items-center gap-2 text-indigo-600 dark:text-indigo-400">
+              <Info className="h-4.5 w-4.5" />
+              <span className="font-sans text-xs font-bold uppercase tracking-widest">
+                Why we exist
+              </span>
+            </div>
+            <p className="font-sans text-base sm:text-lg text-slate-600 dark:text-slate-400 leading-relaxed">
+              Web3 moves at lightning speed, but whitepapers are long, technical, and full of jargon. Investors miss out on alpha because they don't have time to read 40-page PDFs. We bridge that gap.
+            </p>
+          </div>
+        </div>
+      </motion.section>
+
+      {/* Features Section */}
+      <motion.section
+        id="features"
+        variants={itemVariants}
+        className="flex flex-col gap-12 border-t border-slate-200 dark:border-slate-800/50 pt-16"
+      >
+        {/* Section Header */}
+        <div className="flex flex-col items-center text-center gap-2">
+          <h2 className="font-sans text-3xl sm:text-4xl font-extrabold tracking-tight text-slate-900 dark:text-slate-100">
+            Key Features
           </h2>
-          <p className="font-sans text-2xl sm:text-3xl font-bold tracking-tight text-foreground max-w-lg">
-            Purpose-built to deliver extreme clarity in record time.
+          <p className="font-sans text-base sm:text-lg text-slate-600 dark:text-slate-400 max-w-xl">
+            Powerful tools for the modern investor.
           </p>
-        </motion.div>
+        </div>
 
-        {/* Feature Cards Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-          {/* Card 1: ELI5 Simplicity */}
+        {/* 3-Column Features Grid */}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 py-4">
+          {/* Card 1: ELI5 AI Summarizer */}
           <motion.div
             variants={itemVariants}
-            whileHover={{ y: -6, borderColor: 'rgba(99, 102, 241, 0.3)' }}
+            whileHover={{ y: -6, borderColor: 'rgba(99, 102, 241, 0.4)', boxShadow: '0 20px 45px -15px rgba(99,102,241,0.15)' }}
             transition={{ type: 'spring', stiffness: 150, damping: 15 }}
-            className="glass-card rounded-lg p-6 flex flex-col justify-start items-start text-left border border-border transition-all duration-300"
+            className="bg-white/60 dark:bg-slate-800/20 border border-slate-200 dark:border-slate-700/40 rounded-xl p-8 flex flex-col gap-5 hover:border-indigo-500/30 transition-colors backdrop-blur-md group shadow-sm"
           >
-            <div className="p-3 rounded bg-primary/10 text-primary border border-primary/15 mb-6">
-              <Zap className="h-6 w-6" />
+            <div className="w-12 h-12 rounded-lg bg-slate-50 dark:bg-slate-800/80 flex items-center justify-center border border-slate-200 dark:border-slate-700/80 group-hover:scale-105 group-hover:bg-indigo-500/10 transition-all duration-300">
+              <BrainCircuit className="text-indigo-600 dark:text-indigo-400 h-6 w-6" />
             </div>
-            <h3 className="font-sans text-lg font-bold text-foreground mb-2">ELI5 Simplicity</h3>
-            <p className="font-sans text-sm text-muted-foreground leading-relaxed">
-              We translate dense algorithmic descriptions, consensus rules, and cryptography into fun, relatable analogies a 5-year-old child can easily grasp.
-            </p>
+            <div className="flex flex-col gap-2.5">
+              <h3 className="font-sans text-xl font-bold text-slate-800 dark:text-slate-200 mt-1">
+                ELI5 AI Summarizer
+              </h3>
+              <p className="font-sans text-[15px] text-slate-600 dark:text-slate-400 leading-relaxed">
+                Simplifying complex technology into clear, easy-to-understand insights.
+              </p>
+            </div>
           </motion.div>
 
-          {/* Card 2: Instant Bilingual Output */}
+          {/* Card 2: Localization */}
           <motion.div
             variants={itemVariants}
-            whileHover={{ y: -6, borderColor: 'rgba(139, 92, 246, 0.3)' }}
+            whileHover={{ y: -6, borderColor: 'rgba(139, 92, 246, 0.4)', boxShadow: '0 20px 45px -15px rgba(139,92,246,0.15)' }}
             transition={{ type: 'spring', stiffness: 150, damping: 15 }}
-            className="glass-card rounded-lg p-6 flex flex-col justify-start items-start text-left border border-border transition-all duration-300"
+            className="bg-white/60 dark:bg-slate-800/20 border border-slate-200 dark:border-slate-700/40 rounded-xl p-8 flex flex-col gap-5 hover:border-violet-500/30 transition-colors backdrop-blur-md group shadow-sm"
           >
-            <div className="p-3 rounded bg-secondary/10 text-secondary border border-secondary/15 mb-6">
-              <Globe className="h-6 w-6" />
+            <div className="w-12 h-12 rounded-lg bg-slate-50 dark:bg-slate-800/80 flex items-center justify-center border border-slate-200 dark:border-slate-700/80 group-hover:scale-105 group-hover:bg-violet-500/10 transition-all duration-300">
+              <Globe className="text-violet-600 dark:text-violet-400 h-6 w-6" />
             </div>
-            <h3 className="font-sans text-lg font-bold text-foreground mb-2">Bilingual Translation</h3>
-            <p className="font-sans text-sm text-muted-foreground leading-relaxed">
-              Every job renders dual high-fidelity summaries. Instantly switch between English and Bahasa Indonesia with a single fluid visual toggle.
-            </p>
+            <div className="flex flex-col gap-2.5">
+              <h3 className="font-sans text-xl font-bold text-slate-800 dark:text-slate-200 mt-1">
+                Localization
+              </h3>
+              <p className="font-sans text-[15px] text-slate-600 dark:text-slate-400 leading-relaxed">
+                Support for English and Indonesian, with more global languages coming soon.
+              </p>
+            </div>
           </motion.div>
 
-          {/* Card 3: Asynchronous Performance */}
+          {/* Card 3: Personalized Experience */}
           <motion.div
             variants={itemVariants}
-            whileHover={{ y: -6, borderColor: 'rgba(6, 182, 212, 0.3)' }}
+            whileHover={{ y: -6, borderColor: 'rgba(99, 102, 241, 0.4)', boxShadow: '0 20px 45px -15px rgba(99,102,241,0.15)' }}
             transition={{ type: 'spring', stiffness: 150, damping: 15 }}
-            className="glass-card rounded-lg p-6 flex flex-col justify-start items-start text-left border border-border transition-all duration-300"
+            className="bg-white/60 dark:bg-slate-800/20 border border-slate-200 dark:border-slate-700/40 rounded-xl p-8 flex flex-col gap-5 hover:border-indigo-500/30 transition-colors backdrop-blur-md group shadow-sm"
           >
-            <div className="p-3 rounded bg-accent/10 text-accent border border-accent/15 mb-6">
-              <FileText className="h-6 w-6" />
+            <div className="w-12 h-12 rounded-lg bg-slate-50 dark:bg-slate-800/80 flex items-center justify-center border border-slate-200 dark:border-slate-700/80 group-hover:scale-105 group-hover:bg-indigo-500/10 transition-all duration-300">
+              <MoonStar className="text-indigo-600 dark:text-indigo-400 h-6 w-6" />
             </div>
-            <h3 className="font-sans text-lg font-bold text-foreground mb-2">Background Worker Pipeline</h3>
-            <p className="font-sans text-sm text-muted-foreground leading-relaxed">
-              Uses an asynchronous Pub/Sub message broker and multi-page text chunking. Upload is immediate; track progress in real-time.
-            </p>
+            <div className="flex flex-col gap-2.5">
+              <h3 className="font-sans text-xl font-bold text-slate-800 dark:text-slate-200 mt-1">
+                Personalized Experience
+              </h3>
+              <p className="font-sans text-[15px] text-slate-600 dark:text-slate-400 leading-relaxed">
+                Choose between Dark and Light mode for your optimal reading comfort.
+              </p>
+            </div>
           </motion.div>
         </div>
-      </section>
+      </motion.section>
     </motion.div>
   )
 }
