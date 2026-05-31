@@ -5,6 +5,32 @@
 
 ---
 
+## [2026-05-30 20:53] — Prepare Backend for Cloud Run Deployment (Push Worker, ADC, Port Config)
+
+**Fase**: Fase 8 — GCP Cloud Run Deployment Preparation
+**Skill Digunakan**: cloud-architect, backend-architect
+**File yang Diubah**:
+- `chainexplain-be/src/shared/config/firebase.js` [MODIFY] — Mengganti logika credential dari cek `FIRESTORE_EMULATOR_HOST` menjadi cek `GOOGLE_APPLICATION_CREDENTIALS`. Di Cloud Run, env var ini tidak di-set sehingga Firebase Admin SDK otomatis menggunakan Application Default Credentials (ADC) dari service account yang di-attach ke Cloud Run service. Di lokal, tetap bisa pakai `serviceAccountKey.json` jika env var tersebut di-set.
+- `chainexplain-be/src/worker/push-server.js` [NEW] — Express server baru (port 8080) dengan endpoint `POST /pubsub/push` untuk menerima Pub/Sub Push messages di Cloud Run. Meng-reuse `processJob()` dari `worker/index.js`. Termasuk logic non-retryable error detection dan retry via HTTP 500 response agar Pub/Sub melakukan redelivery otomatis.
+- `chainexplain-be/Dockerfile.worker-push` [NEW] — Dockerfile production untuk Worker dalam mode Push. Menggunakan `push-server.js` sebagai entrypoint (HTTP server) bukan `subscriber.js` (Pull polling). Cloud Run mengharuskan container punya HTTP server.
+- `chainexplain-be/Dockerfile.api` [MODIFY] — Mengubah default port dari 3000 → 8080 (requirement Cloud Run yang meng-inject env var `PORT=8080`). Kode Express di `src/index.js` sudah membaca `process.env.PORT` sehingga otomatis kompatibel.
+
+**Justifikasi/Alasan**:
+Cloud Run memiliki tiga requirement fundamental yang berbeda dari local Docker development:
+1. **ADC vs Service Account Key** — Cloud Run menyediakan identity bawaan via attached service account. Menggunakan `serviceAccountKey.json` di production adalah anti-pattern keamanan karena key file bisa bocor. Dengan beralih ke ADC, Firebase Admin SDK otomatis terautentikasi tanpa file credential apapun.
+2. **Push vs Pull Subscription** — Di lokal, worker menggunakan Pull subscription (aktif polling Pub/Sub). Di Cloud Run yang scale-to-zero, Pull tidak efisien karena container harus tetap hidup untuk polling. Push subscription membalik alurnya: Pub/Sub yang mengirim HTTP POST ke worker, sehingga Cloud Run bisa menghidupkan container on-demand dan mematikannya saat idle (hemat biaya).
+3. **Port 8080** — Cloud Run secara default meng-inject `PORT=8080` ke container. Mengubah default di Dockerfile memastikan konsistensi.
+
+Trade-off: File `subscriber.js` dan `Dockerfile.worker` yang lama tetap dipertahankan untuk kompatibilitas local development via `docker-compose.yml`.
+
+**Impact**:
+- **Production-Ready**: Backend siap di-deploy ke Cloud Run tanpa modifikasi tambahan.
+- **Security Best Practice**: Tidak ada credential file yang perlu di-mount ke container production.
+- **Cost Efficient**: Worker Cloud Run bisa scale-to-zero saat idle berkat arsitektur Push.
+- **Backward Compatible**: Local development flow (`docker compose --env-file .env.dev up`) tidak terpengaruh — masih menggunakan Pull subscriber dan Dockerfile.worker yang lama.
+
+---
+
 ## [2026-05-28 13:17] — Optimize Visual Contrast of Diagnostics Box in ErrorPage
 
 **Fase**: Fase 5 — State Management & Integration

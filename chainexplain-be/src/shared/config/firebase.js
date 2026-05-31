@@ -7,7 +7,11 @@ if (!admin.apps.length) {
       projectId: process.env.GCP_PROJECT_ID || 'utopian-pen-495514-a8'
     };
 
-    if (!process.env.FIRESTORE_EMULATOR_HOST) {
+    // Di Cloud Run, GOOGLE_APPLICATION_CREDENTIALS tidak perlu di-set.
+    // Firebase Admin SDK otomatis pakai Application Default Credentials (ADC)
+    // dari service account yang di-attach ke Cloud Run service.
+    // Hanya set credential secara eksplisit jika env var tersedia (local dev).
+    if (process.env.GOOGLE_APPLICATION_CREDENTIALS) {
       config.credential = admin.credential.cert(process.env.GOOGLE_APPLICATION_CREDENTIALS);
     }
 

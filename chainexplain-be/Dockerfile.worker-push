@@ -9,7 +9,5 @@ COPY src/ ./src/
 
 # Cloud Run injects PORT env var (default 8080)
 ENV PORT=8080
-EXPOSE 8080
 
-CMD ["node", "src/index.js"]
-
+CMD ["node", "src/worker/push-server.js"]

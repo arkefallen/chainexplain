@@ -1,0 +1,49 @@
+steps:
+  # Build API image
+  - name: 'gcr.io/cloud-builders/docker'
+    args: ['build', '-t', '${_REGISTRY}/api:$COMMIT_SHA', '-f', 'Dockerfile.api', '.']
+
+  # Build Worker image
+  - name: 'gcr.io/cloud-builders/docker'
+    args: ['build', '-t', '${_REGISTRY}/worker:$COMMIT_SHA', '-f', 'Dockerfile.worker-push', '.']
+
+  # Push API image
+  - name: 'gcr.io/cloud-builders/docker'
+    args: ['push', '${_REGISTRY}/api:$COMMIT_SHA']
+
+  # Push Worker image
+  - name: 'gcr.io/cloud-builders/docker'
+    args: ['push', '${_REGISTRY}/worker:$COMMIT_SHA']
+
+  # Deploy API to Cloud Run
+  - name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
+    entrypoint: gcloud
+    args:
+      - 'run'
+      - 'deploy'
+      - 'chainexplain-api'
+      - '--image=${_REGISTRY}/api:$COMMIT_SHA'
+      - '--region=${_REGION}'
+      - '--platform=managed'
+
+  # Deploy Worker to Cloud Run
+  - name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
+    entrypoint: gcloud
+    args:
+      - 'run'
+      - 'deploy'
+      - 'chainexplain-worker'
+      - '--image=${_REGISTRY}/worker:$COMMIT_SHA'
+      - '--region=${_REGION}'
+      - '--platform=managed'
+
+substitutions:
+  _REGION: asia-southeast2
+  _REGISTRY: asia-southeast2-docker.pkg.dev/utopian-pen-495514-a8/chainexplain
+
+images:
+  - '${_REGISTRY}/api:$COMMIT_SHA'
+  - '${_REGISTRY}/worker:$COMMIT_SHA'
+
+options:
+  logging: CLOUD_LOGGING_ONLY

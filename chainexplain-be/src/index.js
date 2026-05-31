@@ -12,7 +12,14 @@ const app = express();
 
 // Middleware
 app.use(helmet());
-app.use(cors());
+app.use(cors({
+  origin: [
+    'https://chainexplain.vercel.app',     // Production frontend
+    'http://localhost:5173',                // Local development
+  ],
+  methods: ['GET', 'POST'],
+  allowedHeaders: ['Content-Type'],
+}));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(morgan('combined', {
